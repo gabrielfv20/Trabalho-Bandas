@@ -1,8 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Button, View } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
+import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+import Icon from 'react-native-vector-icons/AntDesign';
 
-import ExcluirBanda from "../componentes/ExcluirBanda";
+import ExcluirBanda from "../../componentes/ExcluirBanda";
+import PrintBandas from "./PrintBandas";
+
 
 function Integrantes({ integrantes }) {
     return (
@@ -18,27 +20,29 @@ function Integrantes({ integrantes }) {
       }
       </>
     )
-  }
+}
 
-const TelaBanda = ({ route, navigation}) => {
-    
+function TelaBanda ({ route, navigation }) {
     const { id, nome, integrantes, genero, descricao } = route.params;
     const banda = { id, nome, integrantes, genero, descricao };
-    
+
     return (
-        <SafeAreaView style={styles.painelPrincipal}>
-            <Text style={styles.titulo}>{ nome }</Text>
-            <Text style={styles.rotulo}>Integrantes:</Text>
-            <Integrantes integrantes={integrantes}/>
-            <Text style={styles.rotulo}>Gênero:</Text>
-            <Text style={styles.campo}>{ genero }</Text>
-            <Text style={styles.rotulo}>Descricao</Text>
-            <Text style={styles.campo}>{ descricao }</Text>
-            <View style={styles.painelBotoes}>
-            <Icon style={styles.icon} name='edit' size={35} 
-            onPress={() => navigation.navigate('Editar')}/>
-            </View>
-        </SafeAreaView>
+    <SafeAreaView style={styles.painelPrincipal}>
+        <Text style={styles.titulo}>{ nome }</Text>
+        <Text style={styles.rotulo}>Integrantes:</Text>
+        <Integrantes integrantes={integrantes}/>
+        <Text style={styles.rotulo}>Gênero:</Text>
+        <Text style={styles.campo}>{ genero }</Text>
+        <Text style={styles.rotulo}>Descricao</Text>
+        <Text style={styles.campo}>{ descricao }</Text>
+        <View style={styles.painelBotoes}
+                navigation={navigation}
+            >  
+                <Icon style={styles.icon} name='edit' size={35} 
+                onPress={() => navigation.navigate('Editar')}/>
+                <ExcluirBanda banda={ banda }/>
+        </View>
+    </SafeAreaView>
     );
 }
 

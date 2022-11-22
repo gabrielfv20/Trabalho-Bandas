@@ -8,8 +8,8 @@ import { StatusBar } from 'expo-status-bar';
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar/>
       <TrocaDeTelas/>
+      <StatusBar/>
     </NavigationContainer>
   );
 }

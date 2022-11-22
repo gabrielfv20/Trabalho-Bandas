@@ -12,9 +12,9 @@ export default function ExcluirBanda({ banda }) {
     return (
         <TouchableOpacity onPress={() => {
             excluirBanda({ id: banda.id });
+            navigation.navigate('Listagem')
         } }>
-            <Icon style={styles.icon} name='close' size={35} 
-            onPress={() => navigation.navigate('Listagem')}/>
+            <Icon style={styles.icon} name='close' size={35}/>
         </TouchableOpacity>
     );
 }

@@ -9,10 +9,26 @@ const Stack = createNativeStackNavigator();
 export function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Listagem" component={TelaListagem} />
-      <Stack.Screen name="Cadastro" component={TelaCadastro} />
-      <Stack.Screen name="Editar" component={TelaEditar} />
-      <Stack.Screen name="Banda" component={TelaBanda} />
+      <Stack.Screen name="Listagem" component={TelaListagem} options={{
+        headerStyle:{
+          backgroundColor: '#CBBFBB',
+        },
+      }}/>
+      <Stack.Screen name="Cadastro" component={TelaCadastro} options={{
+        headerStyle:{
+          backgroundColor: '#CBBFBB',
+        },
+      }}/>
+      <Stack.Screen name="Editar" component={TelaEditar} options={{
+        headerStyle:{
+          backgroundColor: '#CBBFBB',
+        },
+      }}/>
+      <Stack.Screen name="Banda" component={TelaBanda} options={{
+        headerStyle:{
+          backgroundColor: '#CBBFBB',
+        },
+      }}/>
     </Stack.Navigator>
   );
 }

@@ -3,9 +3,7 @@ import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, Text } from
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import { listarBandas, selecionarBandas } from '../services/BandaService';
-import ExcluirBanda from '../componentes/ExcluirBanda';
-
+import { listarBandas, selecionarBanda } from '../../services/BandaService';
 
 
 function Banda ({ banda }) {
@@ -15,11 +13,10 @@ function Banda ({ banda }) {
         <View style={styles.bandaContainer}>
             <TouchableOpacity onPress={() => {
                 navigation.navigate('Banda', { ...banda});
-                selecionarBandas({ id: banda.id });
+                selecionarBanda({ id: banda.id });
             }} style={[styles.banda]}>
                 <Text style={styles.titulo}>{ banda?.nome }</Text>
             </TouchableOpacity>
-        <ExcluirBanda banda={banda}/>
         </View>
     )
     
@@ -47,14 +44,14 @@ function Rodape() {
 function ListaVazia() {
     return (
         <View style={styles.painel}>
-            <Text>Não tem nenhum contato cadastrado.</Text>    
-            <Text>Faça o cadastro utilizando o botão "Cadastrar"</Text>
+            <Text>Não tem nenhuma Banda cadastrado.</Text>    
+            <Text>Cliquei no "+" para cadastrar uma banda</Text>
         </View>
     );
 }
 
 
-const TelaListagem = ({navigation}) => {
+const TelaListagem = ({}) => {
     const [selectedId, setSelectedId] = useState(null);
 
     const renderBanda = ({ item: banda }) => {
@@ -74,7 +71,7 @@ const TelaListagem = ({navigation}) => {
     const bandas = listarBandas();
 
     return (
-        <SafeAreaView >
+        <SafeAreaView style={styles.painelPrincipal}>
                 <FlatList
                     data={bandas}
                     renderItem={renderBanda}
@@ -90,6 +87,9 @@ const TelaListagem = ({navigation}) => {
 export default TelaListagem;
 
 const styles = StyleSheet.create({
+    painelPrincipal: {
+        backgroundColor: '#CBBFBB',
+    },
     icon: {
         right: '-40%',
         bottom: '50%',

@@ -1,7 +1,7 @@
 import bandas from "../bandas";
 
 var base_bandas = bandas;
-var mudouAlgo = false;
+var houveAlteracao = false;
 
 export function listarBandas() {
     console.debug(`${base_bandas.length} bandas listados`);
@@ -9,21 +9,23 @@ export function listarBandas() {
     return base_bandas;
 }
 
-export function selecionarBandas({ id }) {
+export function selecionarBanda({ id }) {
     const bandaselecionado = base_bandas.find(bandas => bandas.id === id);
     console.debug(`bandas ${bandaselecionado} selecionado pela chave ${id}`);
 }
 
-export function inserirBandas({ novoBandas }) {
-    console.debug(`bandas ${novoBandas} cadastrado`);
-    const novaChave = Math.floor(Math.random() * 1000000);
-    novoBandas.id = novaChave;
-    base_bandas.push(novoBandas);
-    mudouAlgo = true;
+export function inserirBanda({ novaBanda }) {
+    console.debug(`bandas ${novaBanda} cadastrado`);
+    const novoId = Math.floor(Math.random() * 100000);
+    novaBanda.id = novoId;
+    base_bandas.push(novaBanda);
+    houveAlteracao = true;
 }
 
-export function alterarBanda({ bandas }) {
-    console.info(`Não implementado`);
+export function alterarBanda({ banda }) {
+    const alterarBanda = base_bandas.find(banda => banda.id === id);
+    base_bandas.push(banda);
+    houveAlteracao = true;
 }
 
 export function excluirBanda({ id }) {
