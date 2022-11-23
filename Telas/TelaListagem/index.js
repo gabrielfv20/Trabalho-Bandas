@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { listarBandas, selecionarBanda } from '../../services/BandaService';
+import { listarBandas, selecionarBanda} from '../../services/BandaService';
+import { Button } from '@rneui/base';
 
 
 function Banda ({ banda }) {
@@ -33,10 +35,26 @@ function Cabecalho() {
 function Rodape() {
     const navigation = useNavigation();
 
+    async function mostrarBanda(){
+        const json = await AsyncStorage.getItem("id");
+        const banda = JSON.parse(json);
+
+        console.log(banda)
+
+        Alert.alert('Última banda salva',
+         `Nome: ${banda.nome}`
+         );
+    } 
+
     return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Icon style={styles.icon} name='pluscircleo' size={35} 
                 onPress={() => navigation.navigate('Cadastro')}/>
+                <Button onPress={mostrarBanda} 
+                title="Última Banda"
+                color="#080357"
+                style={styles.botao} 
+                />
             </View>
     );
 }
@@ -111,4 +129,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingTop: 10,
     },
+    botao: {
+        width: '100%',
+        marginTop: 10,
+        paddingHorizontal: 12,
+      },
 })

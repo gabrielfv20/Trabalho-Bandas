@@ -1,4 +1,5 @@
 import bandas from "../bandas";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 var base_bandas = bandas;
 var houveAlteracao = false;
@@ -14,17 +15,19 @@ export function selecionarBanda({ id }) {
     console.debug(`bandas ${bandaselecionado} selecionado pela chave ${id}`);
 }
 
-export function inserirBanda({ novaBanda }) {
+export async function  inserirBanda({ novaBanda }) {
     console.debug(`bandas ${novaBanda} cadastrado`);
-    const novoId = Math.floor(Math.random() * 100000);
-    novaBanda.id = novoId;
+    const salvarBanda = await AsyncStorage.mergeItem("id", JSON.stringify(novaBanda));
+    novaBanda.id = salvarBanda;
     base_bandas.push(novaBanda);
     houveAlteracao = true;
 }
 
 export function alterarBanda({ banda }) {
-    const alterarBanda = base_bandas.find(banda => banda.id === id);
-    base_bandas.push(banda);
+    base_bandas.get(banda);
+    const bandaAtualizada = banda;
+    base_bandas.push(bandaAtualizada)
+    console.debug(`banda ${banda} alterada!`);
     houveAlteracao = true;
 }
 

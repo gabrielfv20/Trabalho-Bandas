@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, TextInput, Button, View, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { inserirBanda } from '../../services/BandaService';
 
-const TelaCadastro = ({navigation}) => {
+const TelaCadastro = ({navigation, route}) => {
   const [nome, onChangeNome] = useState("");
   const [integrantes , onChangeIntegrantes] = useState(null);
   const [genero , onChangeGenero] = useState(null);
   const [descricao , onChangeDescricao] = useState(null);
+
+  async function  salvar() {
+    const banda = {
+      nome, integrantes, genero, descricao
+    }
+    await AsyncStorage.mergeItem(JSON.stringify(banda.id), JSON.stringify(banda));
+  }
+
+  async function mostrarBanda(){
+    const json = await AsyncStorage.getItem(banda.id);
+    const banda = JSON.parse(json);
+
+    Alert.alert('Informações da banda',
+     `Nome: ${banda.nome}`
+     );
+    }
 
   return (
     <SafeAreaView style={styles.painel}>
@@ -66,12 +83,12 @@ const TelaCadastro = ({navigation}) => {
               return;
             }
             inserirBanda({ novaBanda });
-            navigation.navigate('Banda');
+            navigation.navigate('Listagem');
           }}
           title="Salvar"
           color="#080357"
           style={styles.botao}
-        />
+        />     
 
         <Button
           onPress={() => {
